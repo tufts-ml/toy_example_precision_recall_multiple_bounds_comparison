@@ -17,6 +17,8 @@ dependencies:
   - dill>=0.2
   ## Machine Learning
   - scikit-learn>=0.21
+  ## adeversarial prediction
+  - ap-perf>=0.1.1
   ## Autograd autodiff
   - pip:
       - git+https://github.com/hips/autograd.git#egg=autograd
