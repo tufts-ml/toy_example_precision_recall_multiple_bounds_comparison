@@ -27,4 +27,5 @@ We provide a notebook comparing 4 different methodologies that are trained to ma
 
     - We first try Binary cross entropy + post-hoc threshold search, which is commonly used in many applications for the meeting the desired precision-recall. 
 ![](images/BCE_plus_threshold_search_solution.png?raw=true)
+    
     However, we see that even with post-hoc search, BCE cannot achieve the desired precision 
