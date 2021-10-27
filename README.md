@@ -45,6 +45,7 @@ We provide a notebook comparing 4 different methodologies that are trained to ma
    The adversarial prediction bound reached the desired precision of 0.9, and is able to achieve a recall of 0.11, without any post-hoc threshold search. However the total runtime is nearly 3000 seconds, which is 300x the training time required for the other 3 methods.
 
    - Finally, we show the decision boundary of our proposed sigmoid bound, which is tight, differentiable, making gradient-based learning feasible.
+   
 ![](images/sigmoid_solution_precision_90.png?raw=true)
 
    Our proposed sigmoid bound reaches the desired precision of 0.9, without any post-hoc threshold search, and achieves a recall of 0.23, which is nearly 2x the recall achieved by Fathony & Kolter's adversarial prediction bound. Moreover our proposed bound requires a training time of ~15 seconds, which is $(1/300)^{th}$ of the training time required by Fathony & Kolter's adversarial prediction bound.
