@@ -34,6 +34,7 @@ We provide a notebook comparing 4 different methodologies that are trained to ma
    However, we see that even with post-hoc search, BCE cannot achieve the desired precision.
 
    - We then try [Eban et al's](http://proceedings.mlr.press/v54/eban17a/eban17a.pdf) proposed hinge bound.  
+   
 ![](images/hinge_solution_precision_90.png?raw=true)
 
 
