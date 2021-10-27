@@ -63,7 +63,7 @@ def make_loss_and_grad_for_dataset(
         x_ND, y_N,
         lamb=1.0, alpha=0.8,
         l2_penalty_strength=0.00001,
-        gamma=4.0, delta=0.05, epsilon=0.8):
+        gamma=4.0, delta=0.05, epsilon=0.8, verbose=True):
 
     # Extract pos and negative examples from dataset    
     N = y_N.size
@@ -80,14 +80,15 @@ def make_loss_and_grad_for_dataset(
         gamma, delta, epsilon)
     calc_sigmoid_TPLB, m_TPLB, b_TPLB = make_calc_sigmoid_TPLB(
         gamma, delta, epsilon)
+    
+    if verbose:
+        print("FPUB")
+        print("slope     % .7f" % m_FPUB)
+        print("intercept % .7f" % b_FPUB)
 
-    print("FPUB")
-    print("slope     % .7f" % m_FPUB)
-    print("intercept % .7f" % b_FPUB)
-
-    print("TPLB")
-    print("slope     % .7f" % m_TPLB)
-    print("intercept % .7f" % b_TPLB)
+        print("TPLB")
+        print("slope     % .7f" % m_TPLB)
+        print("intercept % .7f" % b_TPLB)
 
     def calc_fp_upper_bound__sigmoid(w_D, return_per_example_array=False):
         # Apply only to the examples where true y is NEGATIVE

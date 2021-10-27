@@ -14,7 +14,8 @@ def solve_minimimization_multiple_tries_with_lbfgs(
         init_w_method='from_uniform',
         init_w_shape=3,
         random_state=101,
-        init_w_ID=None):
+        init_w_ID=None,
+        verbose=True):
 
     if isinstance(random_state, int):
         random_state = np.random.RandomState(int(random_state))
@@ -55,7 +56,9 @@ def solve_minimimization_multiple_tries_with_lbfgs(
         if keep_satisifiers_only:
             summary_msg += "\nmeets constraint that prec >= %.2f ? %s" % (
                 alpha, is_sat)
-        print(summary_msg)
+        
+        if verbose:
+            print(summary_msg)
 
         f = None
         g = None
@@ -70,10 +73,12 @@ def solve_minimimization_multiple_tries_with_lbfgs(
             else:
                 key = 'TP'
                 label = 'TP   '
-            print("       true %s =%6.1f FP =%6.1f" % (
-                label, perfdict[key],   perfdict['FP']))
-            print("  surrogate TP   >=%6.1f FP<=%6.1f" % (tplb, fpub))
-            print("  surrogate  f     % .5f  g  % .5f  l2  % .5f" % (f, g, l2))
+            
+            if verbose:
+                print("       true %s =%6.1f FP =%6.1f" % (
+                    label, perfdict[key],   perfdict['FP']))
+                print("  surrogate TP   >=%6.1f FP<=%6.1f" % (tplb, fpub))
+                print("  surrogate  f     % .5f  g  % .5f  l2  % .5f" % (f, g, l2))
         if keep_satisifiers_only:
             if is_sat == 'YES':
                 cur_loss = -1.0 * perfdict['recall']
