@@ -22,7 +22,7 @@ We provide a notebook comparing 4 different methodologies that are trained to ma
 2. Open the [notebook for reproducing and comparing multiple bounds on the toy example](toy_example_comparing_BCE_Hinge_and_Sigmoid.ipynb) 
 
 3. Run the cells to create the toy example. Our toy example is heavily imbalanced with 120 positive examples and 450 negative examples.
-![](images/toy_example.png | width=100)
+![](images/toy_example.png)
 
  4. Our goal is to train a linear classifier to find a decision boundary that maximizes recall subject to precision>=0.9.
 
