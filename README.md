@@ -30,13 +30,13 @@ We provide a notebook comparing 4 different methodologies that are trained to ma
 
 ![](images/BCE_plus_threshold_search_solution.png?raw=true)
     
-    However, we see that even with post-hoc search, BCE cannot achieve the desired precision.
+   However, we see that even with post-hoc search, BCE cannot achieve the desired precision.
 
-    - We then try [Eban et al's](http://proceedings.mlr.press/v54/eban17a/eban17a.pdf) proposed hinge bound.  
+   - We then try [Eban et al's](http://proceedings.mlr.press/v54/eban17a/eban17a.pdf) proposed hinge bound.  
 ![](images/hinge_solution_precision_90.png?raw=true)
 
 
-    Here again, the hinge bound falls short of the desired precision of 0.9, reaching 0.79 instead. We hypothesize that this is due to the looseness of the hinge bound.
+   Here again, the hinge bound falls short of the desired precision of 0.9, reaching 0.79 instead. We hypothesize that this is due to the looseness of the hinge bound.
 
     - Next, we try the optimizing our custom objective using an adversarial prediction framework recent proposed by [Fathony & Kolter](http://proceedings.mlr.press/v108/fathony20a.html).
 
