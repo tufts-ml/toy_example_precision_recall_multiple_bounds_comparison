@@ -38,6 +38,7 @@ We provide a notebook comparing 4 different methodologies that are trained to ma
     Here again, the hinge bound falls short of the desired precision of 0.9, reaching 0.79 instead. We hypothesize that this is due to the looseness of the hinge bound.
 
     - Next, we try the optimizing our custom objective using an adversarial prediction framework recent proposed by [Fathony & Kolter](http://proceedings.mlr.press/v108/fathony20a.html).
+
 ![](images/adversarial_prediction_precision_90.png?raw=true)
 
     The adversarial prediction bound reached the desired precision of 0.9, and is able to achieve a recall of 0.11, without any post-hoc threshold search. However the total runtime is nearly 3000 seconds, which is 300x the training time required for the other 3 methods.
