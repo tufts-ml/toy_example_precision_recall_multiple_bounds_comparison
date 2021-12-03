@@ -63,7 +63,7 @@ def make_loss_and_grad_for_dataset(
         x_ND, y_N,
         lamb=1.0, alpha=0.8,
         l2_penalty_strength=0.00001,
-        gamma=4.0, delta=0.05, epsilon=0.8, verbose=True):
+        gamma=4.0, delta=0.05, epsilon=0.8, verbose=True, return_scale_corrected_loss=False):
 
     # Extract pos and negative examples from dataset    
     N = y_N.size
@@ -123,8 +123,28 @@ def make_loss_and_grad_for_dataset(
         if return_parts:
             return scaled_loss, f, g, l2_penalty
         return scaled_loss
+    
+    def calc_surrogate_loss_with_scale_correction(w_D, return_parts=False):
+        alpha_ratio = alpha / (1.0 - alpha)
+        N_pos = len(y_pos_N)
+        tpc_scale_correction = gamma*delta*N_pos
+        f = -1.0 * calc_tp_lower_bound__sigmoid(w_D)
+        g = (-1.0 * calc_tp_lower_bound__sigmoid(w_D)
+            + alpha_ratio * calc_fp_upper_bound__sigmoid(w_D)+tpc_scale_correction)
+        g_or_zero = ag_np.maximum(0.0, g)
 
+        l2_penalty = l2_penalty_strength * ag_np.sum(ag_np.square(w_D[:-1]))
+
+        scaled_loss = (f + l2_penalty + lamb * g_or_zero) / float(N)
+        if return_parts:
+            return scaled_loss, f, g, l2_penalty
+        return scaled_loss
+    
     grad_surrogate_loss = autograd.grad(calc_surrogate_loss)
-
-    return calc_surrogate_loss, grad_surrogate_loss, calc_tp_lower_bound__sigmoid, calc_fp_upper_bound__sigmoid
+    grad_surrogate_loss_with_scale_correction = autograd.grad(calc_surrogate_loss_with_scale_correction)
+    
+    if return_scale_corrected_loss:
+        return calc_surrogate_loss_with_scale_correction, grad_surrogate_loss_with_scale_correction, calc_tp_lower_bound__sigmoid, calc_fp_upper_bound__sigmoid
+    else:
+        return calc_surrogate_loss, grad_surrogate_loss, calc_tp_lower_bound__sigmoid, calc_fp_upper_bound__sigmoid
 

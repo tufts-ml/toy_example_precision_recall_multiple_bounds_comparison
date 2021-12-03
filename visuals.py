@@ -17,7 +17,7 @@ def pretty_plot_decision_boundary(
         transparency_level=0.4,
         x1_lims=(-3, 3), x2_lims=(-3, 3),
         x1_ticks=[-2, 0, 2], x2_ticks=[-2, 0, 2],
-        decision_thresh=0.0): 
+        decision_thresh=0.0, ax=None): 
     bmask_pos_N = y_N==1
     x_pos_ND = x_ND[bmask_pos_N]
     y_pos_N = y_N[bmask_pos_N]
@@ -31,7 +31,10 @@ def pretty_plot_decision_boundary(
     redblue_cmap_r = matplotlib.colors.ListedColormap(redblue_colors[::-1])
     
     # Create empty figure with slot for colorbar
-    fig, ax_h = plt.subplots(figsize=figsize)
+    if ax is None:
+        fig, ax_h = plt.subplots(figsize=figsize)
+    else:
+        ax_h = ax
     divider = make_axes_locatable(ax_h)
     cax = divider.append_axes('right', size='5%', pad=0.2)
     ax_h.set_xlim(x1_lims)
@@ -101,3 +104,10 @@ def pretty_plot_decision_boundary(
         perfdict['recall'], bce_loss(w_D)))
 
     return perfdict, im, cbar
+
+def calc_precision_recall(w_D, x_ND, y_N, decision_thresh=0.0): 
+    # Evaluate performance at a specific threshold
+    z_N = calc_decision_score(x_ND, w_D)
+    yhat_N = np.float64(z_N >= decision_thresh)
+    perfdict = calc_binary_clf_perf(y_N, yhat_N)
+    return perfdict
